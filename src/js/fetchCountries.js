@@ -1,27 +1,27 @@
 //import './sass/main.scss';
-
+import debounce from 'lodash.debounce';
 import countryCardTpl from '../templates/country-card.hbs';
 import API from '../js/api-service.js';
 
 const refs = {
     cardContainer: document.querySelector('.js-card-container'),
-    searchForm: document.querySelector('.js-search-form')
+    searchInput: document.querySelector('.js-search-input')
 }
-
-refs.searchForm.addEventListener('submit', onSearch);
+refs.searchInput.addEventListener('input', debounce(onSearch, 500));
 
 function onSearch(e) {
     e.preventDefault();
 
-    const form = e.currentTarget;
-    const searchQuery = form.elements.query.value;
+    //const input = e.target;
+    //console.log(input);
+    const searchQuery = refs.searchInput.value;
 
     API.fetchCountries(searchQuery)
         .then(renderCountryCard)
-        .catch(onFetchError)
-        .finally(() =>
-            form.reset()
-        );
+        .catch(onFetchError);
+    // .finally(() => {
+    //     searchQuery = "";
+    // });
 }
 
 function createCards(country) {
