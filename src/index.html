@@ -9,8 +9,17 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-   
 
-    <script src="index.js"></script>
+    <form class="form js-search-form">
+      <div class="form-group">
+        <input type="text" class="form-control" name="query" >
+      </div>
+
+      <button type="submit" class="btn">Искать</button>
+    </form>
+   
+    <div class="js-card-container"></div>
+
+    <script src="fetchCountries.js"></script>
   </body>
 </html>
