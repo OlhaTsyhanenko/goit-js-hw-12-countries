@@ -12,8 +12,6 @@ refs.searchInput.addEventListener('input', debounce(onSearch, 500));
 function onSearch(e) {
     e.preventDefault();
 
-    //const input = e.target.value;
-    //console.log(input);
     const searchQuery = refs.searchInput.value;
 
     API.fetchCountries(searchQuery)
