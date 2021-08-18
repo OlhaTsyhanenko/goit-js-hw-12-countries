@@ -1,6 +1,7 @@
 //import './sass/main.scss';
-import { readFileSync } from 'fs';
-import countryCardTpl from './templates/country-card.hbs';
+
+import countryCardTpl from '../templates/country-card.hbs';
+import API from '../js/api-service.js';
 
 const refs = {
     cardContainer: document.querySelector('.js-card-container'),
@@ -15,22 +16,13 @@ function onSearch(e) {
     const form = e.currentTarget;
     const searchQuery = form.elements.query.value;
 
-    fetchCountry(searchQuery)
+    API.fetchCountries(searchQuery)
         .then(renderCountryCard)
-        .catch(error => {
-            console.log(error);
-        });
+        .catch(onFetchError)
+        .finally(() =>
+            form.reset()
+        );
 }
-
-
-function fetchCountry(countryName) {
-    return fetch(`https://restcountries.eu/rest/v2/name/${countryName}`)
-        .then(response => {
-            return response.json();
-        });
-
-}
-
 
 function createCards(country) {
     return country.map(countryCardTpl).join('');
@@ -39,6 +31,10 @@ function createCards(country) {
 function renderCountryCard(country) {
     const markup = createCards(country);
     refs.cardContainer.innerHTML = markup;
+}
+
+function onFetchError(error) {
+    alert('Что-то пошло не так!');
 }
 
 
