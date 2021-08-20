@@ -33,12 +33,12 @@ function onSearch(e) {
                 error({
                     text: "No country has been found. Please enter a more specific query!"
                 });
-            }  
+            }
         })
-        .catch(onFetchError)
-        .finally(() => {
-        e.target.value = "";
-        });
+        .catch(onFetchError);
+        // .finally(() => {
+        // e.target.value = "";
+        // });
     
 }
 
